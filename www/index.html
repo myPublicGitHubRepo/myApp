@@ -65,16 +65,36 @@
 <body>
     <h2>My Map</h2>
     <div id="map" class="map"></div>
+
     <script type="text/javascript">
-        var layer = ga.layer.create('ch.swisstopo.pixelkarte-farbe');
-        var map = new ga.Map({
-            target: 'map',
-            layers: [layer],
-            view: new ol.View({
-                resolution: 500,
-                center: [670000, 160000]
+        var baselayer = new ol.layer.Tile({
+            source: new ol.source.XYZ({
+                url: 'http://a.tile.stamen.com/toner/{z}/{x}/{y}.png',
+                crossOrigin: 'anonymous'
             })
         });
+        var map = new ol.Map({
+            target: 'map',
+            renderer: 'webgl', // use WebGL renderer
+            layers: [
+                baselayer
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([37.41, 8.82]),
+                zoom: 4
+            })
+        });
+        /*
+            var layer = ga.layer.create('ch.swisstopo.pixelkarte-farbe');
+            var map = new ga.Map({
+                target: 'map',
+                layers: [layer],
+                view: new ol.View({
+                    resolution: 500,
+                    center: [670000, 160000]
+                })
+            });
+            */
     </script>
     <!--
     <div class="app">
